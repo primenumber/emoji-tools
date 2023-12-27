@@ -1,12 +1,20 @@
 #!/usr/bin/env ruby
 
 source = ARGV[0]
+
+if source == nil then
+  puts "generate rotate animating gif"
+  puts "Usage: ./gen_rotate_anim.rb source.png"
+  exit
+end
+
 width = `identify -format "%w" #{source}`.to_i
 height = `identify -format "%h" #{source}`.to_i
 length = Math.sqrt(width ** 2 + height ** 2)
 mh = (length - height) / 2
 mw = (length - width) / 2
 
+`mkdir tmp`
 steps = 21
 steps.times { |i|
   deg = 360 * i / steps
